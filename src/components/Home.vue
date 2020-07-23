@@ -1,6 +1,6 @@
 <template>
   <div>
-    Home component
+    Home
     <el-row>
       <el-button type="info" @click="logout">Logout</el-button>
     </el-row>
