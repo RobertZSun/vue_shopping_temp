@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '../components/Login'
 import Home from '../components/Home'
+import Welcome from '../components/Welcome'
+import Users from '../components/user/Users'
 
 Vue.use(VueRouter)
 
@@ -16,7 +18,17 @@ const routes = [{
 }, {
   path: '/home',
   name: 'home',
-  component: Home
+  component: Home,
+  redirect: '/welcome',
+  children: [{
+    path: '/welcome',
+    name: 'welcome',
+    component: Welcome
+  }, {
+    path: '/users',
+    name: 'users',
+    component: Users
+  }]
 }]
 
 const router = new VueRouter({
@@ -25,7 +37,7 @@ const router = new VueRouter({
 
 // load login guard
 router.beforeEach((to, from, next) => {
-  const tokenStr = window.sessionStorage.getItem('vuesptoken')
+  const tokenStr = window.sessionStorage.getItem('token')
   if (to.path === '/login' || tokenStr) {
     next()
   } else {

@@ -88,7 +88,7 @@ export default {
             this.$message.error('Login Failed')
           } else {
             this.$message.success('Login Successed')
-            window.sessionStorage.setItem('vuesptoken', dataReceived.data.token)
+            window.sessionStorage.setItem('token', dataReceived.data.token)
             this.$router.push('/home')
           }
         } else {
