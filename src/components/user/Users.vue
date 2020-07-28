@@ -60,7 +60,13 @@
               placement="top-start"
               :enterable="false"
             >
-              <el-button type="info" icon="el-icon-user" circle size="small"></el-button>
+              <el-button
+                type="info"
+                icon="el-icon-user"
+                circle
+                size="small"
+                @click="setRole(scope.row)"
+              ></el-button>
             </el-tooltip>
             <el-button
               type="danger"
@@ -136,6 +142,50 @@
         <el-button type="primary" @click="updateUser(editUserForm.id)">Update</el-button>
       </span>
     </el-dialog>
+    <!-- assign roles -->
+    <el-dialog
+      class="assign-roles-dialog"
+      title="Assigning Roles"
+      :visible.sync="assignRightsDialogVisible"
+      width="30%"
+      @close="setRoleClose"
+    >
+      <div>
+        <el-row style="margin-bottom: 15px;">
+          <el-col :span="5">
+            <b>Current User:</b>
+          </el-col>
+          <el-col :span="19">
+            <span>{{userInfo.username}}</span>
+          </el-col>
+        </el-row>
+        <el-row style="margin-bottom: 5px;">
+          <el-col :span="5">
+            <b>Current Role:</b>
+          </el-col>
+          <el-col :span="19">
+            <span>{{userInfo.role_name}}</span>
+          </el-col>
+        </el-row>
+        <p>
+          <b>Assign new Role:</b>
+          <span>
+            <el-select v-model="selectedRoleId" placeholder="Select roles">
+              <el-option
+                v-for="item in rolesList"
+                :key="item.id"
+                :label="item.roleName"
+                :value="item.id"
+              ></el-option>
+            </el-select>
+          </span>
+        </p>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="assignRightsDialogVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="saveRoleInfo">Confirm</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <i class="fas fa-plus-circle"></i>
@@ -186,6 +236,10 @@ export default {
         email: '',
         mobile: ''
       },
+      assignRightsDialogVisible: false,
+      userInfo: {},
+      rolesList: [],
+      selectedRoleId: '',
       addUserRules: {
         username: [
           { required: true, message: 'Please input username', trigger: 'blur' },
@@ -302,7 +356,7 @@ export default {
       })
     },
     deleteUserById: async function (id) {
-      console.log(id)
+      // console.log(id)
       //   double confirm
       await this.$confirm('This operation will permanently delete this user, do you want to continue?', 'Attention', {
         confirmButtonText: 'Confirm',
@@ -325,8 +379,38 @@ export default {
           message: 'Delete Canceled'
         })
       })
+    },
+    setRole: async function (data) {
+      this.userInfo = data
+      const { data: res } = await Vue.axios.get('roles')
+      if (res.meta.status === 200) {
+        this.rolesList = res.data
+      } else {
+        this.$message.error('roles request failed')
+      }
+      this.assignRightsDialogVisible = true
+      console.log(data)
+    },
+    saveRoleInfo: async function () {
+      if (this.selectedRoleId) {
+        const { data: res } = await Vue.axios.put('users/' + this.userInfo.id + '/role', { rid: this.selectedRoleId })
+        if (res.meta.status === 200) {
+          this.$message.success('new role assigned')
+        } else {
+          this.$message.error('new role assigned failed')
+        }
+        this.assignRightsDialogVisible = false
+        this.getUserList()
+      } else {
+        this.$message.error('please assign a role')
+      }
+    },
+    setRoleClose: function () {
+      this.selectedRoleId = ''
+      this.userInfo = {}
     }
   }
+}
 }
 </script>
 
@@ -356,5 +440,9 @@ export default {
   margin-top: 15px;
   margin-bottom: 20px;
   font-size: 12px;
+}
+
+.assign-roles-dialog {
+  text-align: left;
 }
 </style>
