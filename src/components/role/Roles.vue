@@ -2,20 +2,17 @@
   <div>
     <!-- breadcrumb section -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/home' }">Main Page</el-breadcrumb-item>
       <el-breadcrumb-item>Rights Admin</el-breadcrumb-item>
       <el-breadcrumb-item>Roles List</el-breadcrumb-item>
     </el-breadcrumb>
 
     <el-card class="box-card">
       <!-- add role section -->
-      <el-row :gutter="10">
-        <el-col :span="8">
-          <el-button slot="append" icon="el-icon-search">add</el-button>
-        </el-col>
-        <el-col :span="4">
+      <el-row>
+        <el-col>
           <el-button type="primary">
-            <i class="fas fa-plus-circle"></i>Add Role
+            <i class="fas fa-plus-circle"></i> Add Role
           </el-button>
         </el-col>
       </el-row>

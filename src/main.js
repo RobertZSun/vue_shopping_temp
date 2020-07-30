@@ -6,6 +6,7 @@ import VueAxios from 'vue-axios'
 import './plugins/element.js'
 // import global style file
 import './assets/css/global.css'
+import ZkTable from 'vue-table-with-tree-grid'
 // import fontawesome icons
 import {
   library,
@@ -41,6 +42,7 @@ axios.interceptors.request.use(config => {
 Vue.use(VueAxios, axios)
 // Vue.prototype.$http = axios
 Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.component('tree-table', ZkTable)
 
 Vue.config.productionTip = false
 

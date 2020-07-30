@@ -152,7 +152,7 @@ $contentBGC: #eaedf1;
 .el-main {
   background-color: $contentBGC;
   color: rgb(20, 19, 19);
-  text-align: center;
+  // text-align: center;
 }
 
 .svg-inline--fa {
