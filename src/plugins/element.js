@@ -32,7 +32,12 @@ import {
   Cascader,
   Alert,
   Tabs,
-  TabPane
+  TabPane,
+  Steps,
+  Step,
+  Checkbox,
+  CheckboxGroup,
+  Upload
 } from 'element-ui'
 
 Vue.use(Aside)
@@ -44,6 +49,8 @@ Vue.use(Cascader)
 Vue.use(Container)
 Vue.use(Card)
 Vue.use(Col)
+Vue.use(Checkbox)
+Vue.use(CheckboxGroup)
 Vue.use(Dialog)
 Vue.use(Form)
 Vue.use(FormItem)
@@ -59,6 +66,8 @@ Vue.use(Row)
 Vue.use(Select)
 Vue.use(Switch)
 Vue.use(Submenu)
+Vue.use(Steps)
+Vue.use(Step)
 Vue.use(Tooltip)
 Vue.use(Table)
 Vue.use(TableColumn)
@@ -66,6 +75,7 @@ Vue.use(Tree)
 Vue.use(Tag)
 Vue.use(Tabs)
 Vue.use(TabPane)
+Vue.use(Upload)
 
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm

@@ -249,7 +249,7 @@ export default {
       if (res.meta.status === 200) {
         this.cateList = res.data
       } else {
-        this.$message.error('request products category list failed！')
+        this.$message.error('request products category list failed')
       }
     },
     handleChange: function () {
@@ -264,7 +264,7 @@ export default {
         if (res.meta.status === 200) {
           //   console.log(res.data)
         } else {
-          return this.$message.error('request parameters list failed！')
+          return this.$message.error('request parameters list failed')
         }
         // console.log(res.data)
         res.data.forEach(item => {

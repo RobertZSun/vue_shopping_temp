@@ -7,6 +7,10 @@ import './plugins/element.js'
 // import global style file
 import './assets/css/global.css'
 import ZkTable from 'vue-table-with-tree-grid'
+import VueQuillEditor from 'vue-quill-editor'
+import 'quill/dist/quill.core.css' // import styles
+import 'quill/dist/quill.snow.css' // for snow theme
+import 'quill/dist/quill.bubble.css' // for bubble theme
 // import fontawesome icons
 import {
   library,
@@ -40,9 +44,20 @@ axios.interceptors.request.use(config => {
   return config
 })
 Vue.use(VueAxios, axios)
+Vue.use(VueQuillEditor)
 // Vue.prototype.$http = axios
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.component('tree-table', ZkTable)
+Vue.filter('dateFormat', function (rawDate) {
+  const dateClass = new Date(rawDate)
+  const year = dateClass.getFullYear()
+  const month = (dateClass.getMonth() + 1 + '').padStart(2, '0')
+  const day = (dateClass.getDate() + '').padStart(2, '0')
+  const hour = (dateClass.getHours() + '').padStart(2, '0')
+  const minute = (dateClass.getMinutes() + '').padStart(2, '0')
+  const second = (dateClass.getSeconds() + '').padStart(2, '0')
+  return `${month}-${day}-${year} ${hour}:${minute}:${second}`
+})
 
 Vue.config.productionTip = false
 
