@@ -56,14 +56,12 @@
         @current-change="handleCurrentChange"
         :current-page="queryInfo.pagenum"
         :page-sizes="[5, 10, 15, 20]"
-        :page-size="100"
+        :page-size="queryInfo.pageSize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="totalProductsNum"
         background
       ></el-pagination>
     </el-card>
-
-    <el-dialog></el-dialog>
   </div>
 </template>
 
@@ -88,7 +86,7 @@ export default {
     getGoodsList: async function () {
       const { data: res } = await Vue.axios.get('goods', { params: this.queryInfo })
       if (res.meta.status === 200) {
-        console.log(res.data)
+        // console.log(res.data)
         this.totalProductsNum = res.data.total
         this.productsList = res.data.goods
       } else {
